@@ -9,13 +9,13 @@ permissions:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: LAPTOP-90JOEEAN
 
     env:
       IMAGE_NAME: todo-ui
-      IMAGE_TAG: v4
-      ACR_NAME: devopsinsidersacr235
-      ACR_LOGIN_SERVER: devopsinsidersacr235.azurecr.io
+      IMAGE_TAG: v1
+      ACR_NAME: devcontainerregistry8210
+      ACR_LOGIN_SERVER: devcontainerregistry8210.azurecr.io
 
     steps:
       - name: Checkout code
@@ -24,9 +24,9 @@ jobs:
       - name: Azure Login
         uses: Azure/login@v2.3.0
         with:
-          client-id: ff27bcf6-f60c-4a57-8b01-8eee5de2a9cd
-          tenant-id: 0f7010fd-209e-4344-8457-043ffb37143b
-          subscription-id: 1075ec7a-b17a-4f37-bf3f-9d68c4506dc1
+          client-id: 99dbff3a-dd8d-4658-94da-2326a3b043e3
+          tenant-id: f6f15ce5-ae1c-4d23-8541-6e4b335529f6
+          subscription-id: 1d3588c8-af2c-442c-bdc3-7fc3b65594b9
 
       - name: Log in to ACR
         run: |
