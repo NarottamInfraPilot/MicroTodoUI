@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build-and-push:
-    runs-on: LAPTOP-90JOEEAN
+    runs-on: ubuntu-latest
 
     env:
       IMAGE_NAME: todo-ui
