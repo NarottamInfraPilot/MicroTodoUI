@@ -1,7 +1,12 @@
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: todo-ui-ingress
+  # annotations:
+
+    # Optional: agar cert-manager use karoge to yahan issuer add hoga
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
   rules:
@@ -9,9 +14,9 @@ spec:
     http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: /
         backend:
           service:
             name: todo-ui
-            port: 
+            port:
               number: 80
