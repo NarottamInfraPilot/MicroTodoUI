@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+none
+- main
+  
+
+pool:  mypool
+steps:
+- task: DockerInstaller@0
+  inputs:
+    dockerVersion: '17.09.0-ce'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'ACR_connection'
+    repository: 'mytodoacr8210.azurecr.io'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+
+
