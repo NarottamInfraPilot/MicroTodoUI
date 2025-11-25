@@ -15,6 +15,10 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'ACR_connection'
+    command: 'login'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'ACR_connection'
     repository: 'mytodoacr8210.azurecr.io'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
