@@ -40,8 +40,9 @@ metadata:
     appgw.ingress.kubernetes.io/health-probe-status-codes: "200-399"
 
 spec:
+  ingressClassName: azure/application-gateway
   rules:
-    - host: argocd.apka-domain.com # Yahan apna domain dalein
+    - host: http://ui.narottam.online/ # Yahan apna domain dalein
       http:
         paths:
           - path: /
@@ -51,3 +52,4 @@ spec:
                 name: argocd-server
                 port:
                   name: http # Ya number 80 use karein agar insecure mode on hai
+
