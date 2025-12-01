@@ -14,8 +14,8 @@ jobs:
     env:
       IMAGE_NAME: todo-ui
       IMAGE_TAG: v1
-      ACR_NAME: myacrnarottam
-      ACR_LOGIN_SERVER: myacrnarottam.azurecr.io
+      ACR_NAME: devcontainerregistry8210
+      ACR_LOGIN_SERVER: devcontainerregistry8210.azurecr.io
 
     steps:
       - name: Checkout code
@@ -24,9 +24,9 @@ jobs:
       - name: Azure Login
         uses: Azure/login@v2.3.0
         with:
-          client-id: 99dbff3a-dd8d-4658-94da-2326a3b043e3
-          tenant-id: f6f15ce5-ae1c-4d23-8541-6e4b335529f6
-          subscription-id: 1d3588c8-af2c-442c-bdc3-7fc3b65594b9
+          client-id: 8edcfbb7-ee91-4a1a-a53e-2d4e69521208
+          tenant-id: 471dafaf-0713-47a7-90f3-dd6c9d3a164d
+          subscription-id: 76b3b93d-e123-4b9f-af65-c54152766b04
 
       - name: Log in to ACR
         run: |
