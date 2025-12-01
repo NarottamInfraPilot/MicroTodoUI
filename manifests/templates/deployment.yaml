@@ -1,12 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todo-ui
+  name: {{ .Release.Name }}-todo-ui
+  labels:
+    app: {{ .Release.Name }}-todo-ui
 spec:
-  replicas: 2
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: todo-ui
+      app: {{ .Release.Name }}-todo-ui
   template:
     metadata:
       labels:

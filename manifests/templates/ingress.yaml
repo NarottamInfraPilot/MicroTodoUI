@@ -1,22 +1,53 @@
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: todo-ui-ingress
   # annotations:
 
-    # Optional: agar cert-manager use karoge to yahan issuer add hoga
-    # cert-manager.io/cluster-issuer: letsencrypt-prod
+  # Optional: agar cert-manager use karoge to yahan issuer add hoga
+  # cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
   rules:
-  - host: ui.narottam.online
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: todo-ui
-            port:
-              number: 80
+    - host: ui.narottam.online
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: todo-ui
+                port:
+                  number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-ingress
+  namespace: argocd
+  annotations:
+    # AGIC ko batata hai ki ye ingress use karna hai
+    kubernetes.io/ingress.class: azure/application-gateway
+
+    # Backend se HTTP par baat karne ke liye
+    appgw.ingress.kubernetes.io/backend-protocol: "http"
+
+    # SSL Redirection (Optional: HTTP ko HTTPS pe bhejta hai)
+    appgw.ingress.kubernetes.io/ssl-redirect: "true"
+
+    # Health Probes fix karne ke liye (502 Error se bachne ke liye)
+    appgw.ingress.kubernetes.io/health-probe-path: "/"
+    appgw.ingress.kubernetes.io/health-probe-status-codes: "200-399"
+
+spec:
+  rules:
+    - host: argocd.apka-domain.com # Yahan apna domain dalein
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  name: http # Ya number 80 use karein agar insecure mode on hai
