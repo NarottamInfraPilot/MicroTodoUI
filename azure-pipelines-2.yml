@@ -1,0 +1,6 @@
+trigger: none
+pool: mypool
+steps:
+  - script: 
+      npm install
+      npm run build
