@@ -44,6 +44,7 @@ jobs:
           npm install -g stylelint-config-standard        
           stylelint $(System.DefaultWorkingDirectory)/src --config stylelint.config.mjs  || true
     - task: Bash@3
+      displayName: running yaml
       inputs:
         targetType: 'inline'
         script: |
@@ -61,3 +62,11 @@ jobs:
           
           echo "Running yamllint..." 
           venv/bin/yamllint $(System.DefaultWorkingDirectory) || true
+    - task: Bash@3
+      displayName: markdown lint
+      inputs:
+        targetType: 'inline'
+        script: |
+          npm install -g markdownlint-cli      
+          markdownlint $(System.DefaultWorkingDirectory)/
+      continueOnError: true
