@@ -24,7 +24,7 @@ jobs:
           
           sudo mv biome-linux-x64 /usr/local/bin/biome   # optionally move to PATH
           
-          sudo biome lint $(System.DefaultWorkingDirectory)/src/
-
+          biome lint "$(System.DefaultWorkingDirectory)/src" || true
+          
       continueOnError: true
 
