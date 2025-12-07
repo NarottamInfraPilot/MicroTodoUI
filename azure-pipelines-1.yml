@@ -59,4 +59,5 @@ jobs:
                 # Install yamllint inside venv (allowed!)
           pip install yamllint
           
-          echo "Running yamllint..." ./venv/bin/yamllint $(System.DefaultWorkingDirectory)
+          echo "Running yamllint..." 
+          venv/bin/yamllint $(System.DefaultWorkingDirectory)
