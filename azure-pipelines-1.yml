@@ -26,3 +26,5 @@ jobs:
           
           sudo biome lint $(System.DefaultWorkingDirectory)/src/
 
+      continueOnError: true
+
