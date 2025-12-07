@@ -22,3 +22,6 @@ jobs:
           sudo chmod +x biome-linux-arm64
           
           sudo mv biome-linux-arm64 /usr/local/bin/biome   # optionally move to PATH
+          
+          biome lint .
+
