@@ -17,8 +17,8 @@ jobs:
       inputs:
         targetType: 'inline'
         script: |
-          curl -L -O "https://github.com/biomejs/biome/releases/download/@biomejs%2Fbiome%402.3.8/biome-linux-arm64"
+          sudo curl -L -O "https://github.com/biomejs/biome/releases/download/@biomejs%2Fbiome%402.3.8/biome-linux-arm64"
           
-          chmod +x biome-linux-arm64
+          sudo chmod +x biome-linux-arm64
           
-          mv biome-linux-arm64 /usr/local/bin/biome   # optionally move to PATH
+          sudo mv biome-linux-arm64 /usr/local/bin/biome   # optionally move to PATH
