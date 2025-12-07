@@ -43,50 +43,20 @@ jobs:
           npm install -g stylelint
           npm install -g stylelint-config-standard        
           stylelint $(System.DefaultWorkingDirectory)/src --config stylelint.config.mjs  || true
-        
     - task: Bash@3
       inputs:
         targetType: 'inline'
         script: |
-          sudo apt update -y
-
-
-
-          sudo apt install python3-pip python3-venv -y
-
-      # Create and activate venv
+          sudo apt-get update -y
+          sudo apt-get install python3-pip 
+          python3-venv -y
+          
+                # Create and activate venv
           python3 -m venv venv
           source venv/bin/activate
-
-          # Install yamllint inside venv
+          
+                # Install yamllint inside venv
           pip install yamllint
-
-          echo "Running yamllint..."
+          
+          echo "Running yamllint..." 
           venv/bin/yamllint $(System.DefaultWorkingDirectory)
-
-
-  #         sudo apt install -y python3
-  #         sudo apt install -y python3-pip
-
-  #         pip3 install --user yamllint
-  #         export PATH="$HOME/.local/bin:$PATH"
-  #         yamllint $(System.DefaultWorkingDirectory)  || true
-
-
-  #         - task: Bash@3
-  # displayName: YamlLint
-  # inputs:
-  #   targetType: inline
-  #   script: |
-  #     sudo apt-get update -y
-  #     sudo apt-get install python3-pip python3-venv -y
-
-  #     # Create and activate venv
-  #     python3 -m venv venv
-  #     source venv/bin/activate
-
-  #     # Install yamllint inside venv
-  #     pip install yamllint
-
-  #     echo "Running yamllint..."
-  #     venv/bin/yamllint $(System.DefaultWorkingDirectory)
