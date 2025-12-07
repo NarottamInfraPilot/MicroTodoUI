@@ -68,5 +68,5 @@ jobs:
         targetType: 'inline'
         script: |
           npm install -g markdownlint-cli      
-          markdownlint $(System.DefaultWorkingDirectory)/
-      continueOnError: true
+          markdownlint "**/*.md" || echo "Markdown lint warnings/errors found (pipeline not failing)"
+
