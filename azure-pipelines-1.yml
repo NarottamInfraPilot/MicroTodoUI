@@ -14,7 +14,9 @@ jobs:
   - job: linting
     displayName: lint kar rahe hai
     steps:
+
     - task: Bash@3
+      displayName: biome linting
       inputs:
         targetType: 'inline'
         script: |
@@ -25,6 +27,29 @@ jobs:
           sudo mv biome-linux-x64 /usr/local/bin/biome   # optionally move to PATH
           
           biome lint "$(System.DefaultWorkingDirectory)/src" || true
-          
-      # continueOnError: true
+      
 
+    - task: NodeTool@0
+      displayName: node install kar rahe hai
+      inputs:
+        versionSource: 'spec'
+        versionSpec: '16.x'
+        checkLatest: true
+    - task: Bash@3
+      displayName: yaml lint kar rahe
+      inputs:
+        targetType: 'inline'
+        script: |
+          npm install -g stylelint
+          npm install -g stylelint-config-standard        
+          stylelint $(System.DefaultWorkingDirectory)/src --config stylelint.config.mjs
+
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          sudo apt update -y
+          sudo apt install python3 -y
+          sudo apt install pip
+          pip install --user yamllint
+          yamllint $(System.DefaultWorkingDirectory)
