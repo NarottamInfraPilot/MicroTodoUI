@@ -26,5 +26,5 @@ jobs:
           
           biome lint "$(System.DefaultWorkingDirectory)/src" || true
           
-      continueOnError: true
+      # continueOnError: true
 
