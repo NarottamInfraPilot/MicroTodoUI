@@ -48,15 +48,11 @@ jobs:
         targetType: 'inline'
         script: |
           sudo apt-get update -y
-          sudo apt-get install python3-pip 
-          python3-venv -y
+          sudo apt-get install -y python3 python3-pip
+                
+          pip3 install --user yamllint
+                
+          export PATH="$HOME/.local/bin:$PATH"
           
-                # Create and activate venv
-          python3 -m venv venv
-          source venv/bin/activate
-          
-                # Install yamllint inside venv
-          pip install yamllint
-          
-          echo "Running yamllint..." 
-          venv/bin/yamllint $(System.DefaultWorkingDirectory)
+          echo "Running yamllint..."
+          yamllint "$(System.DefaultWorkingDirectory)"
