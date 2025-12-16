@@ -1,34 +1,52 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
   none
 
 pool:
   mypool
 
-steps:
-# - task: NodeTool@0
-#   inputs:
-#     versionSpec: '20.x'
-#   displayName: 'Install Node.js'
+variables:
+  node_version: '20.x'
+  artifact_name: 'drop'
 
-# - script: |
-#     npm install
-#     npm run build
-#   displayName: 'npm install and build'
-# - task: PublishPipelineArtifact@1
-#   inputs:
-#     targetPath: '$(System.DefaultWorkingDirectory)'
-#     artifact: 'drop'
-#     publishLocation: 'pipeline'
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSource: 'spec'
+    versionSpec: '$(node_version)'
+    checkLatest: true
+
+- script: |
+    npm install
+    npm run build --if-present
+  displayName: 'Install and Build'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: |
+      **
+      !node_modules/**
+      !.git/**
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(artifact_name).zip'
+    replaceExistingArchive: true
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/$(artifact_name).zip'
+    artifact: '$(artifact_name)'
+
 - task: AzureRmWebAppDeployment@5
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'backend_sc'
     appType: 'webAppLinux'
     WebAppName: 'app-service-8210'
-    packageForLinux: 'drop'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/$(artifact_name).zip'
     DeploymentTypeLinux: 'oneDeploy'
