@@ -10,25 +10,25 @@ pool:
   mypool
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.x'
-  displayName: 'Install Node.js'
+# - task: NodeTool@0
+#   inputs:
+#     versionSpec: '20.x'
+#   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)'
-    artifact: 'drop'
-    publishLocation: 'pipeline'
+# - script: |
+#     npm install
+#     npm run build
+#   displayName: 'npm install and build'
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: '$(System.DefaultWorkingDirectory)'
+#     artifact: 'drop'
+#     publishLocation: 'pipeline'
 - task: AzureRmWebAppDeployment@5
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'backend_sc'
     appType: 'webAppLinux'
     WebAppName: 'app-service-8210'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: 'drop'
     DeploymentTypeLinux: 'oneDeploy'
