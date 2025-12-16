@@ -24,3 +24,11 @@ steps:
     targetPath: '$(System.DefaultWorkingDirectory)'
     artifact: 'drop'
     publishLocation: 'pipeline'
+- task: AzureRmWebAppDeployment@5
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'backend_sc'
+    appType: 'webAppLinux'
+    WebAppName: 'app-service-8210'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    DeploymentTypeLinux: 'oneDeploy'
